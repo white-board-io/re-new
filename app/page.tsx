@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
+import { nearestIndianState } from "@/lib/geo";
 import { calculateSolar } from "@/lib/solar";
 
 const STATES: Record<string, number> = {
@@ -36,15 +37,40 @@ export default function Home() {
   const [category, setCategory] = useState<Category>("residential");
   const [subsidy, setSubsidy] = useState(true);
   const [unitCost, setUnitCost] = useState("11.00");
+  const [locationStatus, setLocationStatus] = useState("Detecting your state…");
+  const manualStateSelection = useRef(false);
+  const categoryRef = useRef<Category>("residential");
 
   const result = useMemo(() => calculateSolar(usage, unitCost), [usage, unitCost]);
 
+  useEffect(() => {
+    if (!("geolocation" in navigator)) {
+      queueMicrotask(() => setLocationStatus("Choose your state manually"));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        if (manualStateSelection.current) return;
+        const detectedState = nearestIndianState(coords.latitude, coords.longitude);
+        setState(detectedState);
+        setUnitCost(tariffFor(detectedState, categoryRef.current).toFixed(2));
+        setLocationStatus("Detected from your device location");
+      },
+      () => setLocationStatus("Choose your state manually"),
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 60 * 60 * 1000 },
+    );
+  }, []);
+
   const updateState = (nextState: string) => {
+    manualStateSelection.current = true;
     setState(nextState);
     setUnitCost(tariffFor(nextState, category).toFixed(2));
+    setLocationStatus("Selected manually");
   };
 
   const updateCategory = (nextCategory: Category) => {
+    categoryRef.current = nextCategory;
     setCategory(nextCategory);
     setUnitCost(tariffFor(state, nextCategory).toFixed(2));
     if (nextCategory !== "residential") setSubsidy(false);
@@ -78,9 +104,10 @@ export default function Home() {
             </div>
           </div>
 
-          <label className="fieldBlock">
+          <label className="fieldBlock stateField">
             <span className="fieldLabel"><span>State / Union Territory</span></span>
             <select value={state} onChange={(event) => updateState(event.target.value)}>{Object.keys(STATES).map((name) => <option key={name}>{name}</option>)}</select>
+            <small className="locationNote" aria-live="polite">⌖ {locationStatus}</small>
           </label>
 
           <fieldset className="fieldBlock categoryField">
