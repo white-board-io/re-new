@@ -9,4 +9,9 @@
 @media(min-width:801px){.calculatorGrid,.inputPanel,.outputColumn{height:575px}.outputColumn{grid-template-rows:126px 145px 130px 132px}}
 .locationNote{display:block;margin-top:5px;color:#789087;font-size:9px}.stateField select{display:block}
 @media(min-width:801px){.intro{height:90px}}
-.plantCard{background:#11663A;box-shadow:0 14px 30px rgba(17,102,58,.2)}
+.panel,.plantCard,.impactCard,.numberBox,select,.currencyInput,.segments,.segments span,.savingGrid>div{border-radius:6px}
+.plantCard{background:#11663A;border:1px solid #11663A;box-shadow:0 12px 26px rgba(17,102,58,.18);color:#fff}
+.plantCard>span:first-child{color:#fff}.plantCard p{color:#fff}.plantCard p strong{color:#fff}.plantCard .bubble{display:block}
+html,body{background:#fff}
+.intro{height:32px;padding:0}.introCopy{padding-top:8px}
+@media(max-width:800px){.intro{height:32px;padding:0}.introCopy{padding-top:8px}}

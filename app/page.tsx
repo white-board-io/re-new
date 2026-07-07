@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import Image from "next/image";
 import { nearestIndianState } from "@/lib/geo";
 import { calculateSolar } from "@/lib/solar";
 
@@ -82,9 +81,6 @@ export default function Home() {
   return (
     <main className="solarEstimator">
       <header className="intro">
-        <a className="brand" href="https://www.renew.com/" target="_blank" rel="noreferrer" aria-label="ReNew website">
-          <Image className="brandLogo" src="https://dg4e57nn4fnta.cloudfront.net/logos/ReNew.svg" alt="ReNew" width={120} height={46} priority />
-        </a>
         <div className="introCopy">
           <span className="eyebrow">Solar electricity calculator</span>
         </div>
