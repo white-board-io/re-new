@@ -87,8 +87,6 @@ export default function Home() {
         </a>
         <div className="introCopy">
           <span className="eyebrow">Solar electricity calculator</span>
-          <h1>Global Leading <mark>Renewable &amp; Green Energy</mark> Company</h1>
-          <p>ReNew (NASDAQ: RNW), a global renewable company offering clean and green energy with a 20.2 GW portfolio across wind, solar, hybrid and hydro power.</p>
         </div>
       </header>
 

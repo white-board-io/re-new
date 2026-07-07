@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Global Leading Renewable & Green Energy Company | ReNew",
-  description: "ReNew(NASDAQ: RNW),a global renewable company offering clean & green energy with a portfolio of 20.2 GW including Wind, Solar, Hybrid & Hydro Power.",
+  title: "Solar Electricity Calculator | ReNew",
+  description: "Estimate solar plant size, electricity generation, savings, and environmental impact.",
 };
 
 export default function RootLayout({
