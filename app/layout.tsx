@@ -1,20 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lato = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const scaleInitializer = `
+  (() => {
+    const updateScale = () => {
+      const width = window.innerWidth;
+      const scale = width > 1180 && width < 1920 ? width / 1920 : 1;
+      document.documentElement.style.setProperty("--renew-desktop-scale", String(scale));
+    };
+    updateScale();
+    window.addEventListener("resize", updateScale, { passive: true });
+  })();
+`;
 
 export const metadata: Metadata = {
-  title: "Solar Electricity Calculator | ReNew",
-  description: "Estimate solar plant size, electricity generation, savings, and environmental impact.",
+  title: "ReNew Solar Panels | Reliable Solar Solutions",
+  description:
+    "Explore ReNew's reliable solar panels for homes, businesses and utility-scale projects, backed by world-class manufacturing in India.",
 };
 
 export default function RootLayout({
@@ -23,10 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${lato.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: scaleInitializer }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
