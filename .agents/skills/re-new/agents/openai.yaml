@@ -1,0 +1,6 @@
+interface:
+  display_name: "Re New"
+  short_description: "Repo-specific patterns and workflows for re-new"
+  default_prompt: "Use the re-new repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
